@@ -2,6 +2,8 @@ const express = require('express');
 const api = express();
 const mongoose = require('mongoose');
 
+const UsersRegList = require('./usersRegModel');
+
 //? Routes:
 api.get('/', (req, res, next) => {
     console.log(`Home route called`);
