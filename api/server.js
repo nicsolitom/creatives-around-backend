@@ -3,6 +3,7 @@ const api = express();
 const mongoose = require('mongoose');
 
 const UsersRegList = require('./usersRegModel');
+const UsersProfileInfos = require('./usersProfileModel');
 
 //? Connecting with MongoDB Atlas:
 const caUsers =
