@@ -5,11 +5,11 @@ const mongoose = require('mongoose');
 const UsersRegList = require('./usersRegModel');
 
 //? Connecting with MongoDB Atlas:
-const caUser =
+const caUsers =
 'mongodb+srv://caUser:creativesaroundnicmor@userscreativesaround-dldct.mongodb.net/test?retryWrites=true&w=majority';
 
 mongoose
-    .connect(caUser, {
+    .connect(caUsers, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
@@ -30,12 +30,51 @@ api.use((req, res, next) => {
     next();
   });
   
-
-//? Routes:
-api.get('/', (req, res, next) => {
-    console.log(`Home route called`);
-    res.send(`Home route`)
-});
+  
+  //? Routes:
+  api.get('/', (req, res, next) => {
+      console.log(`Home route called`);
+      res.send(`Home route`)
+    });
+    
+    //? Seed route to create 4 test users in MongoDB Atlas:
+    api.get('/seed', async (req, res, next) => {
+    let userId = '';
+    const seedingUsers = [
+        {
+            email: 'first_user@test.me',
+            password: 'first_user123'
+        },
+        {
+            email: 'second_user@test.me',
+            password: 'second_user123'
+        },
+        {
+            email: 'third_user@test.me',
+            password: 'third_user123'
+        },
+        {
+            email: 'fourth_user@test.me',
+            password: 'fourth_user123'
+        }
+    ];
+    
+    seedingUsers.map(user => {
+        new UsersRegList({
+            email: user.email,
+            password: user.password
+        }).save((err, data) => {
+            if (err) {
+                return console.log('Something went wrong!', err);
+            }
+            console.log(`Data: ${data._id}`);
+            userId = data._id;
+      });
+    });
+  
+    console.log(`Seed route called`);
+    res.send(`Seed route`);
+  });
 
 const port = 3000;
 api.listen(port, () => console.log(`Listening on port ${port}`));
