@@ -1,3 +1,5 @@
+//! NOT YET TESTED IF IT WORKS WELL WITH THE usersRegModel.js
+
 const mongoose = require('mongoose');
 mongoose.pluralize(null);
 
