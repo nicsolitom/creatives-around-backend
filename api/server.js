@@ -59,6 +59,26 @@ api.use((req, res, next) => {
             password: 'fourth_user123'
         }
     ];
+
+    const seedingProfileInfos = [
+        {
+            fullName: 'First User',
+            username: 'first_user',
+            birthday: 01121990,
+            location: 'Berlin',
+            artForms: 'Photography',
+            gallery: 'https://testing.com/img123.jpg',
+            bio: 'My big inspiration for visual art is...',
+            lookingFor: 'I am looking for...',
+            lookingForArtForms: 'Water color',
+            linkDescription: 'My Website',
+            linkURL: 'https://www.myhomepage.com',
+            events: {
+                name: 'Event One',
+                date: 14012020
+            }
+        }
+    ];
     
     seedingUsers.map(user => {
         new UsersRegList({
@@ -70,12 +90,37 @@ api.use((req, res, next) => {
             }
             console.log(`Data: ${data._id}`);
             userId = data._id;
+            
+            //! NOT YET WORKING: 
+            /*
+            seedingProfileInfos.map(profile => {
+                new UsersProfileInfos({
+                    fullName: profile.fullName,
+                    username: profile.username,
+                    birthday: profile.birthday,
+                    location: profile.location,
+                    artForms: profile.artForms,
+                    gallery: profile.gallery,
+                    bio: profile.bio,
+                    lookingFor: profile.lookingFor,
+                    lookingForArtForms: profile.lookingForArtForms,
+                    linkDescription: profile.linkDescription,
+                    linkURL: profile.linkURL,
+                    events: { name: profile.events.name, date: profile.events.date },
+                    user: userId
+                }).save((err, data) => {
+                    if (err) {
+                        return console.log(err);
+                    }
+                    console.log(`Profile info: ${data}`)
+                });
+                */
+            });
       });
+      console.log(`Seed route called`);
+      res.send(`Seed route`);
     });
-  
-    console.log(`Seed route called`);
-    res.send(`Seed route`);
-  });
+
 
 const port = 3000;
 api.listen(port, () => console.log(`Listening on port ${port}`));
