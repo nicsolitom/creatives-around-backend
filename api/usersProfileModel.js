@@ -10,6 +10,11 @@ mongoose.pluralize(null);
 //! + events (Date instead of Number)
 
 const usersProfileSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'UsersRegList',
+    required: true
+  },
   fullName: {
     type: String,
     required: false
@@ -28,12 +33,11 @@ const usersProfileSchema = new mongoose.Schema({
         required: true
     },
     artForms: {
-        type: String,
+        type: [String],
         required: true
     },
     gallery: {
-        type: String,
-        required: false
+        type: [String]
     },
     bio: {
         type: String,
@@ -44,28 +48,24 @@ const usersProfileSchema = new mongoose.Schema({
         required: false
     },
     lookingForArtForms: {
-        type: String,
-        required: false
+        type: [String]
     },
     linkDescription: {
-        type: String,
-        required: true
+        type: String
     },
     linkURL: {
-        type: String,
-        required: true
+        type: [String]
     },
     events: {
         name: String,
-        date: Number,
-        required: false
-    },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'UsersRegList',
-    required: true
-  }
+        date: Number
+    }
 });
 
 const UsersProfileInfos = mongoose.model('UsersProfileInfos', usersProfileSchema);
 module.exports = usersProfileSchema;
+
+// date: {
+//   type: Date,
+//   default: Date.now
+// }
