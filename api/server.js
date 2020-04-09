@@ -6,13 +6,15 @@ const morgan = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const Users = require('./models/user');
+const upload = require('multer')();
 
 const api = express();
 // MIDDLEWARES
 api.use(cors());
 api.use(morgan('dev'));
+api.use(upload.array());
 api.use(express.json());
-api.use(express.urlencoded({ extended: false }));
+api.use(express.urlencoded({ extended: true }));
 api.use(passport.initialize());
 // DATABASE
 mongoose.connect('mongodb://localhost:27017/creatives', {

@@ -13,6 +13,7 @@ passport.use(
       passwordField: 'password',
     },
     async function (email, password, cb) {
+      console.log(email, password);
       try {
         // CHECK IF EMAIL EXISTS IN DB
         const user = await User.findOne({ email });
@@ -40,7 +41,6 @@ passport.use(
       secretOrKey: process.env.JWT_SECRET,
     },
     async function (jwtPayload, cb) {
-      console.log('Payload', jwtPayload);
       try {
         const user = await User.findById(jwtPayload);
         console.log('User', user);

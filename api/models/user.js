@@ -28,7 +28,6 @@ const userSchema = new mongoose.Schema({
   },
   artForms: {
     type: [String],
-    required: true,
   },
   gallery: {
     type: [String],
